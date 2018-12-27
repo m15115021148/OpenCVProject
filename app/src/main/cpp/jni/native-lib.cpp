@@ -47,7 +47,7 @@
 using namespace std;
 using namespace cv;
 
-
+extern "C"
 JNIEXPORT jdouble JNICALL
 Java_com_sensology_opencvproject_OpenCVUtil_playVideo(JNIEnv *env, jobject type,
                                                       jstring firstPath_, jstring secondPath_,
@@ -65,7 +65,7 @@ Java_com_sensology_opencvproject_OpenCVUtil_playVideo(JNIEnv *env, jobject type,
     return 1;
 }
 
-
+extern "C"
 JNIEXPORT jintArray JNICALL
 Java_com_sensology_opencvproject_OpenCVUtil_gray(JNIEnv *env, jclass type, jintArray array_,
                                                  jint width, jint height) {

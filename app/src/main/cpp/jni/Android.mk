@@ -14,7 +14,7 @@ endif
 #opecv end
 
 LOCAL_MODULE := native-lib
-LOCAL_SRC_FILES :=  native-lib.cpp
+LOCAL_SRC_FILES := native-lib.cpp
 
 LOCAL_LDLIBS +=  -lm -llog
 
