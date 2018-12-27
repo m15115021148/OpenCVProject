@@ -1,9 +1,42 @@
 #include <jni.h>
-#include <string>
 #include "cubic_log.h"
+
+#include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <fstream>
+
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/calib3d/calib3d.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/features2d/features2d.hpp"
+#include <opencv2/opencv.hpp>
+
+#include "opencv2/opencv_modules.hpp"
+#include <opencv2/core/utility.hpp>
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/stitching/detail/autocalib.hpp"
+#include "opencv2/stitching/detail/blenders.hpp"
+#include "opencv2/stitching/detail/timelapsers.hpp"
+#include "opencv2/stitching/detail/camera.hpp"
+#include "opencv2/stitching/detail/exposure_compensate.hpp"
+#include "opencv2/stitching/detail/matchers.hpp"
+#include "opencv2/stitching/detail/motion_estimators.hpp"
+#include "opencv2/stitching/detail/seam_finders.hpp"
+#include "opencv2/stitching/detail/warpers.hpp"
+#include "opencv2/stitching/warpers.hpp"
+
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/core/ocl.hpp>
 
 #define CUBIC_LOG_TAG "OpenCV"
 
+using namespace std;
+using namespace cv;
+using namespace cv::detail;
 
 extern "C"
 JNIEXPORT jstring JNICALL
