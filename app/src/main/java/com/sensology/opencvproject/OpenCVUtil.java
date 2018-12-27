@@ -9,7 +9,7 @@ public class OpenCVUtil {
         System.loadLibrary("native-lib");
     }
 
-    public static native String stringFromJNI();
+    public static native int[] gray(int[] array,int width,int height);
 
     public native double playVideo(String firstPath,String secondPath,String path);
 }

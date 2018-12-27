@@ -7,6 +7,12 @@
 #include <iostream>
 #include <fstream>
 
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <errno.h>
+
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/calib3d/calib3d.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
@@ -31,20 +37,15 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/core/ocl.hpp>
+#include <opencv/cv.hpp>
 
+#ifdef CUBIC_LOG_TAG
+#undef CUBIC_LOG_TAG
+#endif
 #define CUBIC_LOG_TAG "OpenCV"
 
 using namespace std;
 using namespace cv;
-using namespace cv::detail;
-
-extern "C"
-JNIEXPORT jstring JNICALL
-Java_com_sensology_opencvproject_OpenCVUtil_stringFromJNI(JNIEnv *env, jclass type) {
-    std::string hello = "Hello from C++";
-    LOGD("test hello log = %s",hello.c_str());
-    return env->NewStringUTF(hello.c_str());
-}
 
 extern "C"
 JNIEXPORT jdouble JNICALL
@@ -62,4 +63,37 @@ Java_com_sensology_opencvproject_OpenCVUtil_playVideo(JNIEnv *env, jobject type,
     env->ReleaseStringUTFChars(path_, path);
 
     return 1;
+}
+
+extern "C"
+JNIEXPORT jintArray JNICALL
+Java_com_sensology_opencvproject_OpenCVUtil_gray(JNIEnv *env, jclass type, jintArray array_,
+                                                 jint width, jint height) {
+    int64 time = cv::getTickCount();
+
+    jint *array = env->GetIntArrayElements(array_, JNI_FALSE);
+
+    if (array == NULL){
+        return 0;
+    }
+
+    Mat imgData(width,height,CV_8UC4,array);
+
+    uchar* ptr = imgData.ptr(0);
+
+    for(int i = 0; i < width * height; i ++){
+        int grayScale = (int)(ptr[4*i+2]*0.299 + ptr[4*i+1]*0.587 + ptr[4*i+0]*0.114);
+        ptr[4*i+1] = static_cast<uchar>(grayScale);
+        ptr[4*i+2] = static_cast<uchar>(grayScale);
+        ptr[4*i+0] = static_cast<uchar>(grayScale);
+    }
+
+    int size = width * height;
+    jintArray result = env->NewIntArray(size);
+
+    LOGD("image gray run time = %f",(cv::getTickCount()-time)/cv::getTickFrequency());
+
+    env->SetIntArrayRegion(result, 0, size, array);
+    env->ReleaseIntArrayElements(array_, array, 0);
+    return result;
 }

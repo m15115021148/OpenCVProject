@@ -3,7 +3,7 @@
 
 # Sets the minimum version of CMake required to build the native library.
 
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.6)
 
 # ##################### OpenCV 环境 ############################
 set(CMAKE_VERBOSE_MAKEFILE on)
@@ -222,6 +222,7 @@ add_library(libtegra_hal STATIC IMPORTED )
 set_target_properties(libtegra_hal PROPERTIES
         IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/src/main/cpp/native/3rdparty/libs/${ANDROID_ABI}/libtegra_hal.a")
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -fexceptions -frtti")
 #======================end opencv========================================
 
 add_library(
@@ -241,22 +242,22 @@ target_link_libraries(
                        native-lib
 
                         #opencv lib a start
-                        libopencv_aruco libopencv_bgsegm libopencv_bioinspired libopencv_calib3d
-                        libopencv_ccalib libopencv_core libopencv_datasets libopencv_dnn
-                        libopencv_dnn_objdetect libopencv_dpm libopencv_face libopencv_features2d
-                        libopencv_flann libopencv_fuzzy libopencv_hfs libopencv_highgui
-                        libopencv_img_hash libopencv_imgcodecs libopencv_imgproc libopencv_line_descriptor
-                        libopencv_ml libopencv_objdetect libopencv_optflow libopencv_phase_unwrapping
-                        libopencv_photo libopencv_plot libopencv_reg libopencv_rgbd
-                        libopencv_saliency libopencv_shape libopencv_stereo libopencv_stitching
-                        libopencv_structured_light libopencv_superres libopencv_surface_matching libopencv_text
-                        libopencv_tracking libopencv_video libopencv_videoio libopencv_videostab
-                        libopencv_xfeatures2d libopencv_ximgproc libopencv_xobjdetect libopencv_xphoto
+                        ${libopencv_aruco} ${libopencv_bgsegm} ${libopencv_bioinspired} ${libopencv_calib3d}
+                        ${libopencv_ccalib} ${libopencv_core} ${libopencv_datasets} ${libopencv_dnn}
+                        ${libopencv_dnn_objdetect} ${libopencv_dpm} ${libopencv_face} ${libopencv_features2d}
+                        ${libopencv_flann} ${libopencv_fuzzy} ${libopencv_hfs} ${libopencv_highgui}
+                        ${libopencv_img_hash} ${libopencv_imgcodecs} ${libopencv_imgproc} ${libopencv_line_descriptor}
+                        ${libopencv_ml} ${libopencv_objdetect} ${libopencv_optflow} ${libopencv_phase_unwrapping}
+                        ${libopencv_photo} ${libopencv_plot} ${libopencv_reg} ${libopencv_rgbd}
+                        ${libopencv_saliency} ${libopencv_shape} ${libopencv_stereo} ${libopencv_stitching}
+                        ${libopencv_structured_light} ${libopencv_superres} ${libopencv_surface_matching} ${libopencv_text}
+                        ${libopencv_tracking} ${libopencv_video} ${libopencv_videoio} ${libopencv_videostab}
+                        ${libopencv_xfeatures2d} ${libopencv_ximgproc} ${libopencv_xobjdetect} ${libopencv_xphoto}
 
                         #3rdparty libs
-                        libcpufeatures libIlmImf liblibjasper liblibjpeg-turbo
-                        liblibpng liblibprotobuf liblibtiff liblibwebp
-                        libtegra_hal
+                        ${libcpufeatures} ${libIlmImf} ${liblibjasper} ${liblibjpeg-turbo}
+                        ${liblibpng} ${liblibprotobuf} ${liblibtiff} ${liblibwebp}
+                        ${libtegra_hal}
                         #opencv lib a end
 
                        ${log-lib} )
