@@ -5,5 +5,11 @@ package com.sensology.opencvproject;
  */
 public class OpenCVUtil {
 
+    static {
+        System.loadLibrary("native-lib");
+    }
+
+    public static native String stringFromJNI();
+
     public native double playVideo(String firstPath,String secondPath,String path);
 }

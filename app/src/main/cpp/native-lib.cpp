@@ -1,17 +1,21 @@
 #include <jni.h>
 #include <string>
+#include "cubic_log.h"
 
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_sensology_opencvproject_MainActivity_stringFromJNI(
-        JNIEnv* env,
-        jobject /* this */) {
+#define CUBIC_LOG_TAG "OpenCV"
+
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_sensology_opencvproject_OpenCVUtil_stringFromJNI(JNIEnv *env, jclass type) {
     std::string hello = "Hello from C++";
+    LOGD("test hello log = %s",hello.c_str());
     return env->NewStringUTF(hello.c_str());
 }
 
 extern "C"
 JNIEXPORT jdouble JNICALL
-Java_com_sensology_opencvproject_OpenCVUtil_playVideo(JNIEnv *env, jobject instance,
+Java_com_sensology_opencvproject_OpenCVUtil_playVideo(JNIEnv *env, jobject type,
                                                       jstring firstPath_, jstring secondPath_,
                                                       jstring path_) {
     const char *firstPath = env->GetStringUTFChars(firstPath_, 0);
